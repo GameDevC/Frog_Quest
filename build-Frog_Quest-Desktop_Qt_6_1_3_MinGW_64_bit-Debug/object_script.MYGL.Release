@@ -1,0 +1,11 @@
+release/animationcontroller.o
+release/level1.o
+release/level_1.o
+release/main.o
+release/mainwindow.o
+release/my_gl.o
+release/timer.o
+release/Scene1.o
+release/moc_mainwindow.o
+release/moc_my_gl.o
+release/moc_timer.o

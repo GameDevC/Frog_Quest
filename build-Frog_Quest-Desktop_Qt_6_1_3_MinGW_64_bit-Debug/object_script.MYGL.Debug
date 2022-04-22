@@ -1,0 +1,11 @@
+debug/animationcontroller.o
+debug/level1.o
+debug/level_1.o
+debug/main.o
+debug/mainwindow.o
+debug/my_gl.o
+debug/timer.o
+debug/Scene1.o
+debug/moc_mainwindow.o
+debug/moc_my_gl.o
+debug/moc_timer.o
