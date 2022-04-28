@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="Main_Character">
+   <widget class="QLabel" name="Level_1_Main_Character">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -32,7 +32,7 @@
      <rect>
       <x>0</x>
       <y>-10</y>
-      <width>16</width>
+      <width>21</width>
       <height>21</height>
      </rect>
     </property>
@@ -43,20 +43,7 @@
      </sizepolicy>
     </property>
    </widget>
-   <widget class="QLabel" name="Change_text_label">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>0</y>
-      <width>49</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="Ground">
+   <widget class="QLabel" name="Level_1_Ground">
     <property name="geometry">
      <rect>
       <x>-10</x>
@@ -69,7 +56,7 @@
      <string>Ground</string>
     </property>
    </widget>
-   <widget class="QLabel" name="BackGround">
+   <widget class="QLabel" name="Level_1_BackGround">
     <property name="geometry">
      <rect>
       <x>-40</x>
@@ -82,7 +69,7 @@
      <string>TextLabel</string>
     </property>
    </widget>
-   <widget class="QLabel" name="platform_1">
+   <widget class="QLabel" name="Level_1_platform_1">
     <property name="geometry">
      <rect>
       <x>310</x>
@@ -95,7 +82,7 @@
      <string>TextLabel</string>
     </property>
    </widget>
-   <widget class="QLabel" name="platform_2">
+   <widget class="QLabel" name="Level_1_platform_2">
     <property name="geometry">
      <rect>
       <x>530</x>
@@ -108,7 +95,7 @@
      <string>TextLabel</string>
     </property>
    </widget>
-   <widget class="QLabel" name="Icon_Fly">
+   <widget class="QLabel" name="Level_1_Icon_Fly">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -121,7 +108,7 @@
      <string>fly</string>
     </property>
    </widget>
-   <widget class="QLabel" name="Fly_Counter">
+   <widget class="QLabel" name="Level_1_Fly_Counter">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -141,20 +128,7 @@
      <string>3/3</string>
     </property>
    </widget>
-   <widget class="QLabel" name="fly_goal_1">
-    <property name="geometry">
-     <rect>
-      <x>540</x>
-      <y>70</y>
-      <width>31</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>fly</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="fly_goal_2">
+   <widget class="QLabel" name="Level_1_fly_goal_2">
     <property name="geometry">
      <rect>
       <x>760</x>
@@ -167,7 +141,7 @@
      <string>fly</string>
     </property>
    </widget>
-   <widget class="QLabel" name="fly_goal_3">
+   <widget class="QLabel" name="Level_1_fly_goal_3">
     <property name="geometry">
      <rect>
       <x>330</x>
@@ -180,7 +154,7 @@
      <string>fly</string>
     </property>
    </widget>
-   <widget class="QLabel" name="Wall_1">
+   <widget class="QLabel" name="Level_1_Wall_1">
     <property name="geometry">
      <rect>
       <x>650</x>
@@ -193,7 +167,7 @@
      <string>Wall</string>
     </property>
    </widget>
-   <widget class="QLabel" name="Wall_2">
+   <widget class="QLabel" name="Level_1_Wall_2">
     <property name="geometry">
      <rect>
       <x>870</x>
@@ -206,7 +180,7 @@
      <string>Wall</string>
     </property>
    </widget>
-   <widget class="QLabel" name="Wall_3">
+   <widget class="QLabel" name="Level_1_Wall_3">
     <property name="geometry">
      <rect>
       <x>1150</x>
@@ -219,7 +193,7 @@
      <string>Wall</string>
     </property>
    </widget>
-   <widget class="QLabel" name="Wall_4">
+   <widget class="QLabel" name="Level_1_Wall_4">
     <property name="geometry">
      <rect>
       <x>1150</x>
@@ -232,7 +206,7 @@
      <string>Wall</string>
     </property>
    </widget>
-   <widget class="QLabel" name="Wall_5">
+   <widget class="QLabel" name="Level_1_Wall_5">
     <property name="geometry">
      <rect>
       <x>1150</x>
@@ -245,7 +219,7 @@
      <string>Wall</string>
     </property>
    </widget>
-   <widget class="QLabel" name="Door_1">
+   <widget class="QLabel" name="Level_1_Door_1">
     <property name="geometry">
      <rect>
       <x>1150</x>
@@ -258,7 +232,7 @@
      <string>Door</string>
     </property>
    </widget>
-   <widget class="QLabel" name="spawn_point">
+   <widget class="QLabel" name="Level_1_spawn_point">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -271,7 +245,7 @@
      <string>spawn</string>
     </property>
    </widget>
-   <widget class="QLabel" name="warp_zone">
+   <widget class="QLabel" name="Level_1_warp_zone">
     <property name="geometry">
      <rect>
       <x>1210</x>
@@ -284,26 +258,52 @@
      <string>warp</string>
     </property>
    </widget>
-   <zorder>BackGround</zorder>
-   <zorder>Main_Character</zorder>
+   <widget class="QLabel" name="YoyoLabel">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>0</y>
+      <width>581</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>BANANA</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Level_1_fly_goal_1">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>80</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>fly</string>
+    </property>
+   </widget>
+   <zorder>Level_1_BackGround</zorder>
+   <zorder>Level_1_Main_Character</zorder>
    <zorder>openGLWidget</zorder>
-   <zorder>Change_text_label</zorder>
-   <zorder>Ground</zorder>
-   <zorder>platform_1</zorder>
-   <zorder>platform_2</zorder>
-   <zorder>Icon_Fly</zorder>
-   <zorder>Fly_Counter</zorder>
-   <zorder>fly_goal_1</zorder>
-   <zorder>fly_goal_2</zorder>
-   <zorder>fly_goal_3</zorder>
-   <zorder>Wall_1</zorder>
-   <zorder>Wall_2</zorder>
-   <zorder>Wall_3</zorder>
-   <zorder>Wall_4</zorder>
-   <zorder>Wall_5</zorder>
-   <zorder>Door_1</zorder>
-   <zorder>spawn_point</zorder>
-   <zorder>warp_zone</zorder>
+   <zorder>Level_1_Ground</zorder>
+   <zorder>Level_1_platform_1</zorder>
+   <zorder>Level_1_platform_2</zorder>
+   <zorder>Level_1_Icon_Fly</zorder>
+   <zorder>Level_1_Fly_Counter</zorder>
+   <zorder>Level_1_fly_goal_2</zorder>
+   <zorder>Level_1_fly_goal_3</zorder>
+   <zorder>Level_1_Wall_1</zorder>
+   <zorder>Level_1_Wall_2</zorder>
+   <zorder>Level_1_Wall_3</zorder>
+   <zorder>Level_1_Wall_4</zorder>
+   <zorder>Level_1_Wall_5</zorder>
+   <zorder>Level_1_Door_1</zorder>
+   <zorder>Level_1_spawn_point</zorder>
+   <zorder>Level_1_warp_zone</zorder>
+   <zorder>YoyoLabel</zorder>
+   <zorder>Level_1_fly_goal_1</zorder>
   </widget>
  </widget>
  <customwidgets>

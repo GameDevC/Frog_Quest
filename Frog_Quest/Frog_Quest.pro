@@ -13,8 +13,8 @@ TEMPLATE = app
 
 SOURCES += \
     animationcontroller.cpp \
-    level1.cpp \
-    level_1.cpp \
+    #level1.cpp \
+    #level_1.cpp \
     main.cpp \
     mainwindow.cpp \
     my_gl.cpp \
@@ -23,8 +23,8 @@ SOURCES += \
 
 HEADERS += \
     animationcontroller.h \
-    level1.h \
-    level_1.h \
+    #level1.h \
+    #level_1.h \
     mainwindow.h \
     #/opt/homebrew/Cellar/glfw/3.3.6/include/GLFW \
     my_gl.h \
@@ -33,9 +33,9 @@ HEADERS += \
 
 FORMS += \
     mainwindow.ui \
-    Scene1.ui \
-    level_1.ui \
-    level1.ui
+    Scene1.ui
+    #level_1.ui \
+    #level1.ui
 
 # Default rules for deployment.
 

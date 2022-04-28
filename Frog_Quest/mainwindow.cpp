@@ -12,6 +12,8 @@
 #include <QTimer>
 #include <string>
 #include <iostream>
+#include <QHBoxLayout>
+#include <QLabel>
 
 using namespace std;
 
@@ -20,10 +22,20 @@ vector<vector<int>> BlockedZone;
 QList<QLabel*> flyHolder;
 vector<vector<int>> WallBlockedZone;
 vector<vector<int>> DoorBlockedZone;
+//vector<vector<int>> FlyHolderZone;
+QLabel *MainCharPointer;
+QLabel *BackgroundPointer;
+QLabel *GroundPointer;
+QLabel *WarpZonePointer;
+QLabel *SpawnZonePointer;
+QLabel *FlyCounterPointer;
+QLabel *IconFlyPointer;
 
+//stageCounter
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
+    //QMainWindow level1;
     ui->setupUi(this);
     //lvl1.setParent(this);
 
@@ -32,9 +44,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     setFixedWidth(1280);
     setFixedHeight(720);
 
-    //spawn player
-    toSpawnPoint();
-    ui->spawn_point->setText("");
+
 
     //makes time
     QTimer *timer = new QTimer(this);
@@ -46,8 +56,33 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     animtimer->start(150);
 
 
+    //test label
+    //ui->Change_text_label->setText("");
+    LevelSetUp();
+
+
+
+    //hide();
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::LevelSetUp(){
+
+
+    //spawn player
+    FindSpecificElements();
+    FindMainCharacter();
+    toSpawnPoint();
+    SpawnZonePointer->setText("");
+
+
+
     //makes Main Character
-    QString filename = "C:/Users/nacde/OneDrive/Documents/SchoolCode/CSE165/Project/Frog_Quest/Assets/Characters/Main/MC_Idel1.png";
+    QString filename = "../Frog_Quest/Assets/Characters/Main/MC_Idel1.png";
 
     string printer = filename.toStdString();
     cout << printer;
@@ -55,17 +90,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     if (QString::compare(filename, QString()) != 0){
         QImage image;
         bool valid = image.load(filename);
-        image = image.scaledToWidth(ui->Main_Character->width(), Qt::SmoothTransformation);
+        image = image.scaledToWidth(MainCharPointer->width(), Qt::SmoothTransformation);
 
         if(valid){
-            ui->Main_Character->setPixmap(QPixmap::fromImage(image));
+            MainCharPointer->setPixmap(QPixmap::fromImage(image));
         } else {
             //error handling
         }
     }
-
-    //test label
-    ui->Change_text_label->setText("");
 
     Set_Ground();
     Set_BackGround();
@@ -83,14 +115,120 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     Generate_Warp();
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
+void MainWindow::setUpStageLabels(){
+    //make label and its name
+    //move to labels position
+    //set width and height
+
+    //QString::fromStdString(str);
+
+    //int xPoster = ui->YoyoLabel->x();
+    //int yPoster = ui->YoyoLabel->y();
+
+    //QHBoxLayout *layout = new QHBoxLayout();
+
+    QLabel *label4 = new QLabel(this);
+    label4->setGeometry(-40,0,1411,731);
+    label4->setObjectName("Level_2_BackGround");
+    label4->show();
+
+    QLabel *label = new QLabel(this);
+    label->setGeometry(310,400,221,31);
+    label->setObjectName("Level_2_platform_1");
+    //label->setObjectName(QString::fromStdString("Level_2_platform_1"));
+    //label->setAccessibleName("Level_2_platform_1");
+    //label->sizePolicy(Preferred,Preferred,0,0);
+    //label->setEnabled(true);
+    //label->setText(QString::fromStdString("BOOOOOGABOOOOGA"));
+    //QMainWindow->addWidget(label);
+    //layout->addWidget(label);
+    //setLayout(layout);
+    label->show();
+
+    QLabel *label2 = new QLabel(this);
+    label2->setGeometry(1150,250,21,251);
+    label2->setObjectName("Level_2_wall_1");
+    label2->show();
+
+    QLabel *label3 = new QLabel(this);
+    label3->setGeometry(40,140,151,191);
+    label3->setObjectName("Level_2_Main_Character");
+    label3->setObjectName(QString::fromStdString("Level_2_Main_Character"));
+    label3->show();
+
+    QLabel *label5 = new QLabel(this);
+    label5->setGeometry(50,0,61,41);
+    label5->setObjectName("Level_2_Fly_Counter");
+    label5->show();
+
+    QLabel *label6 = new QLabel(this);
+    label6->setGeometry(0,0,51,51);
+    label6->setObjectName("Level_2_Icon_Fly");
+    label6->show();
+
+    QLabel *label7 = new QLabel(this);
+    label7->setGeometry(540,80,31,31);
+    label7->setObjectName("Level_2_fly_goal_1");
+    label7->show();
+
+    QLabel *label8 = new QLabel(this);
+    label8->setGeometry(50,510,49,51);
+    label8->setObjectName("Level_2_spawn_point");
+    label8->show();
+
+    QLabel *label9 = new QLabel(this);
+    label9->setGeometry(-10,660,1441,61);
+    label9->setObjectName("Level_2_Ground");
+    label9->show();
+
+    QLabel *label10 = new QLabel(this);
+    label10->setGeometry(1150,450,21,251);
+    label10->setObjectName("Level_2_Door_1");
+    label10->show();
+
+    QLabel *label11 = new QLabel(this);
+    label11->setGeometry(1210,510,81,141);
+    label11->setObjectName("Level_2_warp_zone");
+    label11->show();
+
+}
+
+void MainWindow::deleteAllLabels(){
+    QList<QLabel*> allLabels = this->findChildren<QLabel*>();
+    //for loop that checks all labels in size.
+    for(int i = 0; i < allLabels.size(); i++){
+
+        QString nameOfLabel = allLabels[i]->objectName();
+        //check if name has platform_ in it
+        if ((nameOfLabel.toStdString()).find("Level_1") != std::string::npos) {
+            if ((nameOfLabel.toStdString()).find("fly_goal_") != std::string::npos) {
+                //allLabels[i]->deleteLater();
+            }else{
+                allLabels[i]->deleteLater();
+            }
+        }
+        //get the name of the current label
+        //QString nameOfLabel = allLabels[i]->objectName();
+
+    }
+}
+
+void MainWindow::clearAllArrays(){
+
+    //flyHolder.clear();
+    //flyHolder.removeAll("Level_1");
+    BlockedZone.clear();
+    WallBlockedZone.clear();
+    DoorBlockedZone.clear();
+
+    //BlockedZone = new vector<vector<int>>;
 }
 
 void MainWindow::updateProgress()
 {
     //WORKS OF GRAVITY
+    TrackCharacter();
+
     bool GravityTF = Check_Ground();
     bool GravityPlatformTF = Check_Platform();
     if(GravityTF == false){
@@ -105,7 +243,7 @@ void MainWindow::updateProgress()
 
 
     //MOVING LEFT AND RIGHT REFINING
-    ui->Main_Character->move(ui->Main_Character->x() + xSpeed,ui->Main_Character->y());
+    MainCharPointer->move(MainCharPointer->x() + xSpeed,MainCharPointer->y());
     if(xSpeed != 0){
         Horizontal_Drag();
     }
@@ -117,17 +255,60 @@ void MainWindow::updateProgress()
 
 }
 
+void MainWindow::FindMainCharacter(){
+    QList<QLabel*> allLabels = this->findChildren<QLabel*>();
+    for(int i = 0; i < allLabels.size(); i++){
+        //get the name of the current label
+        QString nameOfLabel = allLabels[i]->objectName();
+
+        if ((nameOfLabel.toStdString()).find("Main_Character") != std::string::npos) {
+            MainCharPointer = allLabels[i];
+
+        }
+    }
+}
+
+void MainWindow::FindSpecificElements(){
+    QList<QLabel*> allLabels = this->findChildren<QLabel*>();
+    for(int i = 0; i < allLabels.size(); i++){
+        //get the name of the current label
+        QString nameOfLabel = allLabels[i]->objectName();
+
+        if ((nameOfLabel.toStdString()).find("BackGround") != std::string::npos) {
+            BackgroundPointer = allLabels[i];
+        }
+        if ((nameOfLabel.toStdString()).find("Ground") != std::string::npos) {
+            GroundPointer = allLabels[i];
+        }
+        if ((nameOfLabel.toStdString()).find("warp_zone") != std::string::npos) {
+            WarpZonePointer = allLabels[i];
+        }
+        if ((nameOfLabel.toStdString()).find("spawn_point") != std::string::npos) {
+            SpawnZonePointer = allLabels[i];
+        }
+        if ((nameOfLabel.toStdString()).find("Icon_Fly") != std::string::npos) {
+            IconFlyPointer = allLabels[i];
+        }
+        if ((nameOfLabel.toStdString()).find("Fly_Counter") != std::string::npos) {
+            FlyCounterPointer = allLabels[i];
+        }
+    }
+
+
+
+}
+
 void MainWindow::animationCaller()
 {
     //fly animation
     int flyCount = 2;
 
-    //QString filename = "C:/Users/nacde/OneDrive/Documents/SchoolCode/CSE165/Project/Frog_Quest/Assets/Characters/Fly/Fly_" + QString::fromStdString(to_string(flyCurrentCount)) + ".png";
+    //QString filename = "../Frog_Quest/Assets/Characters/Fly/Fly_" + QString::fromStdString(to_string(flyCurrentCount)) + ".png";
 
     if(flyCurrentCount > flyCount){
         flyCurrentCount = 1;
     }
-    QString filename = "C:/Users/nacde/OneDrive/Documents/SchoolCode/CSE165/Project/Frog_Quest/Assets/Characters/Fly/Fly_" + QString::fromStdString(to_string(flyCurrentCount)) + ".png";
+    QString filename = "../Frog_Quest/Assets/Characters/Fly/Fly_" + QString::fromStdString(to_string(flyCurrentCount)) + ".png";
     flyCurrentCount = flyCurrentCount + 1;
 
     QList<QLabel*> allLabels = this->findChildren<QLabel*>();
@@ -156,15 +337,15 @@ void MainWindow::animationCaller()
 }
 
 
-void MainWindow::timeLoop(int incrementingTime){
+//void MainWindow::timeLoop(int incrementingTime){
     //this is useless
-}
+//}
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
 
     if (event->key() == Qt::Key_D) {
-        //ui->Main_Character->move(ui->Main_Character->x() + 15,ui->Main_Character->y());
+        //MainCharPointer->move(MainCharPointer->x() + 15,MainCharPointer->y());
         blockedMovingXp = Check_Wall_Positive();
         blockedMovingXp2 = Check_Door_Positive();
         if(blockedMovingXp == false && blockedMovingXp2 == false){
@@ -174,7 +355,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     }
 
     if (event->key() == Qt::Key_A) {
-         //ui->Main_Character->move(ui->Main_Character->x() - 15,ui->Main_Character->y());
+         //MainCharPointer->move(MainCharPointer->x() - 15,MainCharPointer->y());
         blockedMovingXn = Check_Wall_Negative();
         blockedMovingXn2 = Check_Door_Negative();
         if(blockedMovingXn == false && blockedMovingXn2 == false){
@@ -184,7 +365,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     }
 
     if (event->key() == Qt::Key_W) {
-        //ui->Main_Character->move(ui->Main_Character->x() ,ui->Main_Character->y() - 15);
+        //MainCharPointer->move(MainCharPointer->x() ,MainCharPointer->y() - 15);
         if(inAir == false){
             inAir = true;
             gravitySpeed = -jumpSpeed;
@@ -195,7 +376,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     }
 
     if (event->key() == Qt::Key_Space) {
-        //ui->Main_Character->move(ui->Main_Character->x() ,ui->Main_Character->y() - 15);
+        //MainCharPointer->move(MainCharPointer->x() ,MainCharPointer->y() - 15);
         if(inAir == false){
             inAir = true;
             gravitySpeed = -jumpSpeed;
@@ -207,28 +388,28 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
     if (event->key() == Qt::Key_S) {
         //ui->openGLWidget->effectZero();
-        //ui->openGLWidget->Crouch(-0.5f);
+        ui->openGLWidget->Crouch(-0.5f);
 
          //removed becaues you don't really move through the ground
-         //ui->Main_Character->move(ui->Main_Character->x(),ui->Main_Character->y() + 15);
+         //MainCharPointer->move(MainCharPointer->x(),MainCharPointer->y() + 15);
     }
 
 }
 
 void MainWindow::Gravity(){
     Gravity_Pull();
-    if(ui->Main_Character->y() + gravitySpeed <= ui->Ground->y() - (groundMultiplier*ui->Ground->height())){
-        ui->Main_Character->move(ui->Main_Character->x(),ui->Main_Character->y() + gravitySpeed);
+    if(MainCharPointer->y() + gravitySpeed <= GroundPointer->y() - (groundMultiplier*GroundPointer->height())){
+        MainCharPointer->move(MainCharPointer->x(),MainCharPointer->y() + gravitySpeed);
     }else if(onPlatform == true){
-        ui->Main_Character->move(ui->Main_Character->x(),platformYHolder);
+        MainCharPointer->move(MainCharPointer->x(),platformYHolder);
     }else{
-        ui->Main_Character->move(ui->Main_Character->x(),ui->Ground->y() - (groundMultiplier*ui->Ground->height()));
+        MainCharPointer->move(MainCharPointer->x(),GroundPointer->y() - (groundMultiplier*GroundPointer->height()));
         inAir = false;
     }
 }
 
 void MainWindow::Set_BackGround(){
-    QString filename = "C:/Users/nacde/OneDrive/Documents/SchoolCode/CSE165/Project/Frog_Quest/Assets/Characters/Main/TempBackground.jpg";
+    QString filename = "../Frog_Quest/Assets/Characters/Main/TempBackground.jpg";
 
     string printer = filename.toStdString();
     cout << printer;
@@ -236,10 +417,10 @@ void MainWindow::Set_BackGround(){
     if (QString::compare(filename, QString()) != 0){
         QImage image;
         bool valid = image.load(filename);
-        image = image.scaledToWidth(ui->BackGround->width(), Qt::SmoothTransformation);
+        image = image.scaledToWidth(BackgroundPointer->width(), Qt::SmoothTransformation);
 
         if(valid){
-            ui->BackGround->setPixmap(QPixmap::fromImage(image));
+            BackgroundPointer->setPixmap(QPixmap::fromImage(image));
         } else {
             //error handling
         }
@@ -247,7 +428,7 @@ void MainWindow::Set_BackGround(){
 }
 
 void MainWindow::Set_Ground(){
-    QString filename = "C:/Users/nacde/OneDrive/Documents/SchoolCode/CSE165/Project/Frog_Quest/Assets/Level/Grond/Dirt.jpg";
+    QString filename = "../Frog_Quest/Assets/Level/Grond/Dirt.jpg";
 
     string printer = filename.toStdString();
     cout << printer;
@@ -255,10 +436,10 @@ void MainWindow::Set_Ground(){
     if (QString::compare(filename, QString()) != 0){
         QImage image;
         bool valid = image.load(filename);
-        image = image.scaledToWidth(ui->Ground->width(), Qt::SmoothTransformation);
+        image = image.scaledToWidth(GroundPointer->width(), Qt::SmoothTransformation);
 
         if(valid){
-            ui->Ground->setPixmap(QPixmap::fromImage(image));
+            GroundPointer->setPixmap(QPixmap::fromImage(image));
         } else {
             //error handling
         }
@@ -266,7 +447,7 @@ void MainWindow::Set_Ground(){
 }
 
 void MainWindow::Generate_Platforms(){
-    QString filename = "C:/Users/nacde/OneDrive/Documents/SchoolCode/CSE165/Project/Frog_Quest/Assets/Level/Platforms/Wooden_Platform1.png";
+    QString filename = "../Frog_Quest/Assets/Level/Platforms/Wooden_Platform1.png";
 
     string printer = filename.toStdString();
     cout << printer;
@@ -274,7 +455,7 @@ void MainWindow::Generate_Platforms(){
     //sets name of platforms
     string currentPlatform = "platform_1";
     QString labelExtension = "platform_1";
-    QLabel* label = ui->platform_1;
+    //QLabel* label = ui->platform_1;
     QList<QLabel*> allLabels = this->findChildren<QLabel*>();
 
     for(int i = 0; i < allLabels.size(); i++){
@@ -302,7 +483,7 @@ void MainWindow::Generate_Platforms(){
 
 
 void MainWindow::Generate_Walls(){
-    QString filename = "C:/Users/nacde/OneDrive/Documents/SchoolCode/CSE165/Project/Frog_Quest/Assets/Level/Walls/Wall_1.png";
+    QString filename = "../Frog_Quest/Assets/Level/Walls/Wall_1.png";
 
     string printer = filename.toStdString();
     cout << printer;
@@ -332,7 +513,7 @@ void MainWindow::Generate_Walls(){
 }
 
 void MainWindow::Generate_Doors(){
-    QString filename = "C:/Users/nacde/OneDrive/Documents/SchoolCode/CSE165/Project/Frog_Quest/Assets/Level/Doors/Door_1.png";
+    QString filename = "../Frog_Quest/Assets/Level/Doors/Door_1.png";
 
     string printer = filename.toStdString();
     cout << printer;
@@ -362,7 +543,7 @@ void MainWindow::Generate_Doors(){
 }
 
 void MainWindow::Generate_Warp(){
-    QString filename = "C:/Users/nacde/OneDrive/Documents/SchoolCode/CSE165/Project/Frog_Quest/Assets/Level/Portals/portal_1.png";
+    QString filename = "../Frog_Quest/Assets/Level/Portals/portal_1.png";
 
     string printer = filename.toStdString();
     cout << printer;
@@ -392,19 +573,19 @@ void MainWindow::Generate_Warp(){
 }
 
 bool MainWindow::Check_Ground(){
-    int MC_Ypos = ui->Main_Character->y();
-    int Ground_Ypos = ui->Ground->y();
-    if(MC_Ypos <= Ground_Ypos - ((groundMultiplier+.1)*ui->Ground->height())){
+    int MC_Ypos = MainCharPointer->y();
+    int Ground_Ypos = GroundPointer->y();
+    if(MC_Ypos <= Ground_Ypos - ((groundMultiplier+.1)*GroundPointer->height())){
         return true;
     }
     return false;
 }
 
 bool MainWindow::Check_Platform(){
-    int MC_Ypos = ui->Main_Character->y();//top
-    int MC_Ypos2 = ui->Main_Character->y()+ui->Main_Character->height();//bottom
-    int MC_Xpos = ui->Main_Character->x();//left
-    int MC_Xpos2 = ui->Main_Character->x() + ui->Main_Character->width();//right
+    int MC_Ypos = MainCharPointer->y();//top
+    int MC_Ypos2 = MainCharPointer->y()+MainCharPointer->height();//bottom
+    int MC_Xpos = MainCharPointer->x();//left
+    int MC_Xpos2 = MainCharPointer->x() + MainCharPointer->width();//right
     //if the player is within the two x values of 0 and 1, and is
 
     //loops through BlockedZone vector
@@ -416,7 +597,7 @@ bool MainWindow::Check_Platform(){
                 platformYHolder = BlockedZone[i][1]-200;
                 onPlatform = true;
                 gravitySpeed = 0;
-                //ui->Main_Character->move(ui->Main_Character->x(),BlockedZone[i][1]-210);
+                //MainCharPointer->move(MainCharPointer->x(),BlockedZone[i][1]-210);
                 inAir = false;
                 return false;
             }
@@ -430,8 +611,8 @@ bool MainWindow::Check_Platform(){
 bool MainWindow::Check_Wall_Positive(){
 
     for(int i = 0; i< WallBlockedZone.size(); i += 4){
-        if(ui->Main_Character->y() < WallBlockedZone[i][1]-100 && ui->Main_Character->y() > WallBlockedZone[i+2][1]-100){
-            if(ui->Main_Character->x() + 100 < WallBlockedZone[i][0] && ui->Main_Character->x() + xSpeed + 130 >= WallBlockedZone[i][0]){
+        if(MainCharPointer->y() < WallBlockedZone[i][1]-100 && MainCharPointer->y() > WallBlockedZone[i+2][1]-100){
+            if(MainCharPointer->x() + 100 < WallBlockedZone[i][0] && MainCharPointer->x() + xSpeed + 130 >= WallBlockedZone[i][0]){
                 return true;
             }
         }
@@ -443,8 +624,8 @@ bool MainWindow::Check_Wall_Positive(){
 bool MainWindow::Check_Wall_Negative(){
 
     for(int i = 0; i< WallBlockedZone.size(); i += 4){
-        if(ui->Main_Character->y() < WallBlockedZone[i][1]-100 && ui->Main_Character->y() > WallBlockedZone[i+2][1]-100){
-            if(ui->Main_Character->x() + 35 > WallBlockedZone[i][0] && ui->Main_Character->x() + xSpeed + 0 <= WallBlockedZone[i][0]){
+        if(MainCharPointer->y() < WallBlockedZone[i][1]-100 && MainCharPointer->y() > WallBlockedZone[i+2][1]-100){
+            if(MainCharPointer->x() + 35 > WallBlockedZone[i][0] && MainCharPointer->x() + xSpeed + 0 <= WallBlockedZone[i][0]){
                 return true;
             }
         }
@@ -455,8 +636,8 @@ bool MainWindow::Check_Wall_Negative(){
 bool MainWindow::Check_Door_Positive(){
 
     for(int i = 0; i< DoorBlockedZone.size(); i += 4){
-        if(ui->Main_Character->y() < DoorBlockedZone[i][1]-100 && ui->Main_Character->y() > DoorBlockedZone[i+2][1]-100){
-            if(ui->Main_Character->x() + 100 < DoorBlockedZone[i][0] && ui->Main_Character->x() + xSpeed + 130 >= DoorBlockedZone[i][0]){
+        if(MainCharPointer->y() < DoorBlockedZone[i][1]-100 && MainCharPointer->y() > DoorBlockedZone[i+2][1]-100){
+            if(MainCharPointer->x() + 100 < DoorBlockedZone[i][0] && MainCharPointer->x() + xSpeed + 130 >= DoorBlockedZone[i][0]){
                 return true;
             }
         }
@@ -468,8 +649,8 @@ bool MainWindow::Check_Door_Positive(){
 bool MainWindow::Check_Door_Negative(){
 
     for(int i = 0; i< DoorBlockedZone.size(); i += 4){
-        if(ui->Main_Character->y() < DoorBlockedZone[i][1]-100 && ui->Main_Character->y() > DoorBlockedZone[i+2][1]-100){
-            if(ui->Main_Character->x() + 35 > DoorBlockedZone[i][0] && ui->Main_Character->x() + xSpeed + 0 <= DoorBlockedZone[i][0]){
+        if(MainCharPointer->y() < DoorBlockedZone[i][1]-100 && MainCharPointer->y() > DoorBlockedZone[i+2][1]-100){
+            if(MainCharPointer->x() + 35 > DoorBlockedZone[i][0] && MainCharPointer->x() + xSpeed + 0 <= DoorBlockedZone[i][0]){
                 return true;
             }
         }
@@ -478,15 +659,15 @@ bool MainWindow::Check_Door_Negative(){
 }
 
 void MainWindow::Detect_Fly(){
-    int MC_Ypos = ui->Main_Character->y();//top
-    int MC_Ypos2 = ui->Main_Character->y()+ui->Main_Character->height();//bottom
-    int MC_Xpos = ui->Main_Character->x();//left
-    int MC_Xpos2 = ui->Main_Character->x() + ui->Main_Character->width();//right
+    int MC_Ypos = MainCharPointer->y();//top
+    int MC_Ypos2 = MainCharPointer->y()+MainCharPointer->height();//bottom
+    int MC_Xpos = MainCharPointer->x();//left
+    int MC_Xpos2 = MainCharPointer->x() + MainCharPointer->width();//right
     for(int i = 0; i < flyHolder.size(); i++){
         //flyHolder[i]->move(flyHolder[i]->x(), flyHolder[i]->y() + 1);
         if(flyHolder[i]->x() > MC_Xpos && flyHolder[i]->x()+8 < MC_Xpos2){
             if(flyHolder[i]->y() > MC_Ypos && flyHolder[i]->y() < MC_Ypos2){
-                //ui->Main_Character->move(ui->Main_Character->x(),ui->Main_Character->y() - 15);
+                //MainCharPointer->move(MainCharPointer->x(),MainCharPointer->y() - 15);
                 flyHolder[i]->move(flyHolder[i]->x(), flyHolder[i]->y() - 1000);
                 fliesCollected = fliesCollected + 1;
                 Door_Lock();
@@ -496,18 +677,14 @@ void MainWindow::Detect_Fly(){
 }
 
 void MainWindow::Detect_Portal(){
-    int MC_Ypos = ui->Main_Character->y();//top
-    int MC_Ypos2 = ui->Main_Character->y()+ui->Main_Character->height();//bottom
-    int MC_Xpos = ui->Main_Character->x();//left
-    int MC_Xpos2 = ui->Main_Character->x() + ui->Main_Character->width();//right
-    QLabel* portalHold = ui->warp_zone;
+    int MC_Ypos = MainCharPointer->y();//top
+    int MC_Ypos2 = MainCharPointer->y()+MainCharPointer->height();//bottom
+    int MC_Xpos = MainCharPointer->x();//left
+    int MC_Xpos2 = MainCharPointer->x() + MainCharPointer->width();//right
+    QLabel* portalHold = WarpZonePointer;
         if(portalHold->x() > MC_Xpos-7 && portalHold->x()+10 < MC_Xpos2){
             if(portalHold->y() > MC_Ypos-7 && portalHold->y()+7 < MC_Ypos2){
-                //toSpawnPoint();
-                //uic.load("C:/Users/nacde/OneDrive/Documents/SchoolCode/CSE165/Project/Frog_Quest/Scene1.ui",self);
-                //ui->setupUI(this);
-                //hide();
-                //lvl1.show();
+                whenWarped();
             }
         }
 
@@ -536,11 +713,11 @@ void MainWindow::Door_Lock(){
 }
 
 void MainWindow::Push_Out_Of_Ground(){
-    int Ground_Ypos = ui->Ground->y();
-    Ground_Ypos = Ground_Ypos - (groundMultiplier*ui->Ground->height());
-    if(ui->Main_Character->y() > Ground_Ypos){
+    int Ground_Ypos = GroundPointer->y();
+    Ground_Ypos = Ground_Ypos - (groundMultiplier*GroundPointer->height());
+    if(MainCharPointer->y() > Ground_Ypos){
         float pushOutSpeed = 3;
-        ui->Main_Character->move(ui->Main_Character->x(),ui->Main_Character->y() - pushOutSpeed);
+        MainCharPointer->move(MainCharPointer->x(),MainCharPointer->y() - pushOutSpeed);
     }
 }
 
@@ -648,7 +825,7 @@ void MainWindow::Generate_Blocked_Doors(){
 
 void MainWindow::Generate_Screen_UI(){
     //Fly icons
-    QString filename = "C:/Users/nacde/OneDrive/Documents/SchoolCode/CSE165/Project/Frog_Quest/Assets/Characters/Fly/Fly_2.png";
+    QString filename = "../Frog_Quest/Assets/Characters/Fly/Fly_2.png";
 
     string printer = filename.toStdString();
     cout << printer;
@@ -656,10 +833,10 @@ void MainWindow::Generate_Screen_UI(){
     if (QString::compare(filename, QString()) != 0){
         QImage image;
         bool valid = image.load(filename);
-        image = image.scaledToWidth(ui->Icon_Fly->width(), Qt::SmoothTransformation);
+        image = image.scaledToWidth(IconFlyPointer->width(), Qt::SmoothTransformation);
 
         if(valid){
-            ui->Icon_Fly->setPixmap(QPixmap::fromImage(image));
+            IconFlyPointer->setPixmap(QPixmap::fromImage(image));
         } else {
             //error handling
         }
@@ -673,12 +850,12 @@ void MainWindow::Update_Fly_Count(){
     //fliesCollected
     string flyPrinter = to_string(fliesCollected) + "/" + to_string(numberOfFlies);
     QString flyPrinter2 = QString::fromStdString(flyPrinter);
-    ui->Fly_Counter->setText(flyPrinter2);
+    FlyCounterPointer->setText(flyPrinter2);
 }
 
 void MainWindow::Count_All_Flies(){
 
-    QString filename = "C:/Users/nacde/OneDrive/Documents/SchoolCode/CSE165/Project/Frog_Quest/Assets/Characters/Fly/Fly_1.png";
+    QString filename = "../Frog_Quest/Assets/Characters/Fly/Fly_1.png";
 
     string printer = filename.toStdString();
     cout << printer;
@@ -689,7 +866,8 @@ void MainWindow::Count_All_Flies(){
         //get the name of the current label
         QString nameOfLabel = allLabels[i]->objectName();
         //check if name has platform_ in it
-        if ((nameOfLabel.toStdString()).find("fly_goal_") != std::string::npos) {
+        string flyStringTemp = "Level_" + to_string(stageCounter) + "_fly_goal";
+        if ((nameOfLabel.toStdString()).find(flyStringTemp) != std::string::npos) {
             flyHolder.append(allLabels[i]);
             numberOfFlies = numberOfFlies + 1;
             //when in rome i guess (sets up fly skins)
@@ -712,9 +890,37 @@ void MainWindow::Count_All_Flies(){
 }
 
 void MainWindow::toSpawnPoint(){
-    ui->Main_Character->move(ui->spawn_point->x(),ui->spawn_point->y());
+    MainCharPointer->move(SpawnZonePointer->x(),SpawnZonePointer->y());
 }
 
+void MainWindow::whenWarped(){
+    //toSpawnPoint();
+    //uic.load("../Frog_Quest/Scene1.ui",self);
+    //ui->setupUI(this);
+    //hide();
+    //lvl1.show();
+    stageCounter = stageCounter + 1;
+    fliesCollected = 0;
+    numberOfFlies = 0;
+    deleteAllLabels();
+    clearAllArrays();
+    setUpStageLabels();
+    //deleteAllLabels();
+    LevelSetUp();
+
+    //deleteAllLabels();
+    //setUpStageLabels();
+    //LevelSetUp();
+
+}
+
+
+
+//Testing area
+void MainWindow::TrackCharacter(){
+    string PositioningOfPlayer = "x = " + to_string(MainCharPointer->x()) + ".y = " + to_string(MainCharPointer->y()) +".number of flies = " + to_string(numberOfFlies);
+    ui->YoyoLabel->setText(QString::fromStdString(PositioningOfPlayer));
+}
 
 
 //junk code =====================================

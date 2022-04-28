@@ -54,6 +54,14 @@ private:
     void toSpawnPoint();
     void Generate_Warp();
     void Detect_Portal();
+    void LevelSetUp();
+    void setUpStageLabels();
+    void deleteAllLabels();
+    void FindMainCharacter();
+    void FindSpecificElements();
+    void clearAllArrays();
+    void whenWarped();
+    void TrackCharacter();
 
     float TIMESPACER = 1000;
     float xSpeed = 0;
@@ -67,6 +75,7 @@ private:
     int numberOfFlies = 0;
     int fliesCollected = 0;
     int flyCurrentCount = 1;
+    int stageCounter = 1;
 
 
     float jumpSpeed = 50;

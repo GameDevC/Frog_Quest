@@ -1,3 +1,4 @@
+/*
 #ifndef level_1_H
 #define level_1_H
 
@@ -21,3 +22,4 @@ class level_1:public QMainWindow
 
 #endif // level_1_H
 
+*/
