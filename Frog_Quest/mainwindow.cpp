@@ -26,6 +26,8 @@ vector<vector<int>> BlockedZone;
 QList<QLabel*> flyHolder;
 vector<vector<int>> WallBlockedZone;
 vector<vector<int>> DoorBlockedZone;
+vector<vector<int>> TestingBlockZone; //delete later
+vector<vector<int>> TestingBlockZone2; //delete later
 //vector<vector<int>> FlyHolderZone;
 QLabel *MainCharPointer;
 QLabel *BackgroundPointer;
@@ -58,6 +60,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     QTimer *animtimer = new QTimer(this);
     connect(animtimer, &QTimer::timeout, this, &MainWindow::animationCaller);
     animtimer->start(150);
+
+    QTimer *playerTimer = new QTimer(this);
+    connect(playerTimer, &QTimer::timeout, this, &MainWindow::playerAnimator);
+    playerTimer->start(150);
+
+
 
 
     //test label
@@ -162,6 +170,9 @@ void MainWindow::clearAllArrays(){
     BlockedZone.clear();
     WallBlockedZone.clear();
     DoorBlockedZone.clear();
+    BlockedZone.empty();
+    WallBlockedZone.empty();
+    DoorBlockedZone.empty();
 
     //BlockedZone = new vector<vector<int>>;
 }
@@ -240,9 +251,156 @@ void MainWindow::FindSpecificElements(){
 
 }
 
+void MainWindow::playerAnimator(){
+    //player animation========================================================================================================================
+    //isLeftFacing = false;
+    if(isLeftFacing == false){
+        if(inAir){
+            if(MainCharPointer->y() > MainCharPointer->y() + gravitySpeed){//if character is below the next position on going up
+                int MCUpCount = 1;
+                QString filename = "../Frog_Quest/Assets/Characters/Main/MC_JumpUp1.png";
+                if (QString::compare(filename, QString()) != 0){
+                    QImage image;
+                    bool valid = image.load(filename);
+                    image = image.scaledToWidth(MainCharPointer->width(), Qt::SmoothTransformation);
+                    if(valid){
+                        MainCharPointer->setPixmap(QPixmap::fromImage(image));
+                    } else {
+                        //error handling
+                    }
+                }
+            }else if(MainCharPointer->y() <= MainCharPointer->y() + gravitySpeed){//going down
+                int MCDownCount = 1;
+                QString filename = "../Frog_Quest/Assets/Characters/Main/MC_JumpDown1.png";
+                if (QString::compare(filename, QString()) != 0){
+                    QImage image;
+                    bool valid = image.load(filename);
+                    image = image.scaledToWidth(MainCharPointer->width(), Qt::SmoothTransformation);
+                    if(valid){
+                        MainCharPointer->setPixmap(QPixmap::fromImage(image));
+                    } else {
+                        //error handling
+                    }
+                }
+            }
+
+        }else{
+            if(xSpeed == 0){//if standing still
+                int MCIdelCount = 4;
+                if(MCIdelCurrentCount > MCIdelCount){
+                    MCIdelCurrentCount = 1;
+                }
+                QString filename = "../Frog_Quest/Assets/Characters/Main/MC_Idel" + QString::fromStdString(to_string(MCIdelCurrentCount)) + ".png";
+                MCIdelCurrentCount = MCIdelCurrentCount + 1;
+                if (QString::compare(filename, QString()) != 0){
+                    QImage image;
+                    bool valid = image.load(filename);
+                    image = image.scaledToWidth(MainCharPointer->width(), Qt::SmoothTransformation);
+                    if(valid){
+                        MainCharPointer->setPixmap(QPixmap::fromImage(image));
+                    } else {
+                        //error handling
+                    }
+                }
+
+            }else if(xSpeed != 0){
+                int MCMovingCount = 4;
+                if(MCMovingCurrentCount > MCMovingCount){
+                    MCMovingCurrentCount = 1;
+                }
+                QString filename = "../Frog_Quest/Assets/Characters/Main/MC_Run" + QString::fromStdString(to_string(MCMovingCurrentCount)) + ".png";
+                MCMovingCurrentCount = MCMovingCurrentCount + 1;
+                if (QString::compare(filename, QString()) != 0){
+                    QImage image;
+                    bool valid = image.load(filename);
+                    image = image.scaledToWidth(MainCharPointer->width(), Qt::SmoothTransformation);
+                    if(valid){
+                        MainCharPointer->setPixmap(QPixmap::fromImage(image));
+                    } else {
+                        //error handling
+                    }
+                }
+
+            }
+        }
+    }else if(isLeftFacing == true){
+        if(inAir){
+            if(MainCharPointer->y() > MainCharPointer->y() + gravitySpeed){//if character is below the next position on going up
+                int MCUpCount = 1;
+                QString filename = "../Frog_Quest/Assets/Characters/Main/MC_JumpUp1Left.png";
+                if (QString::compare(filename, QString()) != 0){
+                    QImage image;
+                    bool valid = image.load(filename);
+                    image = image.scaledToWidth(MainCharPointer->width(), Qt::SmoothTransformation);
+                    if(valid){
+                        MainCharPointer->setPixmap(QPixmap::fromImage(image));
+                    } else {
+                        //error handling
+                    }
+                }
+            }else if(MainCharPointer->y() <= MainCharPointer->y() + gravitySpeed){//going down
+                int MCDownCount = 1;
+                QString filename = "../Frog_Quest/Assets/Characters/Main/MC_JumpDown1Left.png";
+                if (QString::compare(filename, QString()) != 0){
+                    QImage image;
+                    bool valid = image.load(filename);
+                    image = image.scaledToWidth(MainCharPointer->width(), Qt::SmoothTransformation);
+                    if(valid){
+                        MainCharPointer->setPixmap(QPixmap::fromImage(image));
+                    } else {
+                        //error handling
+                    }
+                }
+            }
+
+        }else{
+            if(xSpeed == 0){//if standing still
+                int MCIdelCount = 4;
+                if(MCIdelCurrentCount > MCIdelCount){
+                    MCIdelCurrentCount = 1;
+                }
+                QString filename = "../Frog_Quest/Assets/Characters/Main/MC_Idel" + QString::fromStdString(to_string(MCIdelCurrentCount)) + "Left.png";
+                MCIdelCurrentCount = MCIdelCurrentCount + 1;
+                if (QString::compare(filename, QString()) != 0){
+                    QImage image;
+                    bool valid = image.load(filename);
+                    image = image.scaledToWidth(MainCharPointer->width(), Qt::SmoothTransformation);
+                    if(valid){
+                        MainCharPointer->setPixmap(QPixmap::fromImage(image));
+                    } else {
+                        //error handling
+                    }
+                }
+
+            }else if(xSpeed != 0){
+                int MCMovingCount = 4;
+                if(MCMovingCurrentCount > MCMovingCount){
+                    MCMovingCurrentCount = 1;
+                }
+                QString filename = "../Frog_Quest/Assets/Characters/Main/MC_Run" + QString::fromStdString(to_string(MCMovingCurrentCount)) + "Left.png";
+                MCMovingCurrentCount = MCMovingCurrentCount + 1;
+                if (QString::compare(filename, QString()) != 0){
+                    QImage image;
+                    bool valid = image.load(filename);
+                    image = image.scaledToWidth(MainCharPointer->width(), Qt::SmoothTransformation);
+                    if(valid){
+                        MainCharPointer->setPixmap(QPixmap::fromImage(image));
+                    } else {
+                        //error handling
+                    }
+                }
+
+            }
+        }
+    }
+
+}
+
 void MainWindow::animationCaller()
 {
-    //fly animation
+
+
+    //fly animation============================================================================================================================
     int flyCount = 2;
 
     //QString filename = "../Frog_Quest/Assets/Characters/Fly/Fly_" + QString::fromStdString(to_string(flyCurrentCount)) + ".png";
@@ -293,6 +451,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         if(blockedMovingXp == false && blockedMovingXp2 == false){
             xSpeed = baseSpeed;
         }
+        isLeftFacing = false;
 
     }
 
@@ -303,6 +462,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         if(blockedMovingXn == false && blockedMovingXn2 == false){
             xSpeed = -baseSpeed;
         }
+        isLeftFacing = true;
 
     }
 
@@ -691,7 +851,8 @@ void MainWindow::Generate_Blocked_Zones(){
         //get the name of the current label
         QString nameOfLabel = allLabels[i]->objectName();
         //check if name has platform_ in it
-        if ((nameOfLabel.toStdString()).find("platform_") != std::string::npos) {
+        string platformStringTemp = "Level_" + to_string(stageCounter) + "_platform_";
+        if ((nameOfLabel.toStdString()).find(platformStringTemp) != std::string::npos) {
             //top left, position 0
             vector<int> pushVectorData = {allLabels[i]->x()-platformXModifier,allLabels[i]->y()+allLabels[i]->height()+10};
             BlockedZone.push_back(pushVectorData);
@@ -718,7 +879,9 @@ void MainWindow::Generate_Blocked_Walls(){
         //get the name of the current label
         QString nameOfLabel = allLabels[i]->objectName();
         //check if name has Wall_ in it
-        if ((nameOfLabel.toStdString()).find("Wall_") != std::string::npos) {
+
+        string wallStringTemp = "Level_" + to_string(stageCounter) + "_Wall_";
+        if ((nameOfLabel.toStdString()).find(wallStringTemp) != std::string::npos) {
             //top left, position 0
             vector<int> pushVectorData = {allLabels[i]->x()-wallXModifier,allLabels[i]->y()+allLabels[i]->height()+10};
             WallBlockedZone.push_back(pushVectorData);
@@ -738,6 +901,7 @@ void MainWindow::Generate_Blocked_Walls(){
 
 void MainWindow::Generate_Blocked_Doors(){
     //insert 4 values at a time. Each of these values will make a square. These squares will make a zone that the player cannot go through.
+    //strangely enough, you don't need to search for specific door placement, since door isn't technically in the way after because collision is sent into sky
 
     //gets all the labels in the scene.
     QList<QLabel*> allLabels = this->findChildren<QLabel*>();
@@ -861,7 +1025,26 @@ void MainWindow::whenWarped(){
 
 //Testing area
 void MainWindow::TrackCharacter(){
-    string PositioningOfPlayer = "x = " + to_string(MainCharPointer->x()) + ".y = " + to_string(MainCharPointer->y()) +".number of flies = " + to_string(numberOfFlies);
+    string tester;
+    string actual;
+    if(TestingBlockZone.size() == 0){
+        tester = "empty";
+    }else{
+        tester = "full";
+    }
+    vector<int> trash = {1,2};
+    vector<int> trash2 = {3,4};
+    vector<int> trash3 = {5,6};
+    TestingBlockZone2.push_back(trash);
+    TestingBlockZone2.push_back(trash2);
+    TestingBlockZone2.push_back(trash3);
+    TestingBlockZone2.clear();
+    if(TestingBlockZone2.size() == 0){
+        actual = "empty";
+    }else{
+        actual = "full";
+    }
+    string PositioningOfPlayer = "x = " + to_string(MainCharPointer->x()) + ".y = " + to_string(MainCharPointer->y()) +".number of flies = " + to_string(numberOfFlies) + ".tester = " + tester + ". Actual = " + actual;
     ui->YoyoLabel->setText(QString::fromStdString(PositioningOfPlayer));
 }
 

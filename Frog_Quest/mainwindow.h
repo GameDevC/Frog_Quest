@@ -62,6 +62,7 @@ private:
     void clearAllArrays();
     void whenWarped();
     void TrackCharacter();
+    void playerAnimator();
 
     float TIMESPACER = 1000;
     float xSpeed = 0;
@@ -75,6 +76,8 @@ private:
     int numberOfFlies = 0;
     int fliesCollected = 0;
     int flyCurrentCount = 1;
+    int MCIdelCurrentCount = 1;
+    int MCMovingCurrentCount = 1;
     int stageCounter = 1;
 
 
@@ -82,11 +85,14 @@ private:
     float gravitySpeed = 0;
 
     bool inAir = false;
+    bool isIdle = false;
+    bool isWalking = false;
     bool onPlatform = false;
     bool blockedMovingXp = false;
     bool blockedMovingXn = false;
     bool blockedMovingXp2 = false;
     bool blockedMovingXn2 = false;
+    bool isLeftFacing = false;
 
 
 
