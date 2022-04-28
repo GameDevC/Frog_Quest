@@ -14,6 +14,10 @@
 #include <iostream>
 #include <QHBoxLayout>
 #include <QLabel>
+#include "LevelStorage.cpp"
+
+#include <QtGui>
+#include <QtWidgets>
 
 using namespace std;
 
@@ -119,77 +123,14 @@ void MainWindow::setUpStageLabels(){
     //make label and its name
     //move to labels position
     //set width and height
+    vector<Asset*> currentLevelAssets = levelSelect(stageCounter);
 
-    //QString::fromStdString(str);
-
-    //int xPoster = ui->YoyoLabel->x();
-    //int yPoster = ui->YoyoLabel->y();
-
-    //QHBoxLayout *layout = new QHBoxLayout();
-
-    QLabel *label4 = new QLabel(this);
-    label4->setGeometry(-40,0,1411,731);
-    label4->setObjectName("Level_2_BackGround");
-    label4->show();
-
-    QLabel *label = new QLabel(this);
-    label->setGeometry(310,400,221,31);
-    label->setObjectName("Level_2_platform_1");
-    //label->setObjectName(QString::fromStdString("Level_2_platform_1"));
-    //label->setAccessibleName("Level_2_platform_1");
-    //label->sizePolicy(Preferred,Preferred,0,0);
-    //label->setEnabled(true);
-    //label->setText(QString::fromStdString("BOOOOOGABOOOOGA"));
-    //QMainWindow->addWidget(label);
-    //layout->addWidget(label);
-    //setLayout(layout);
-    label->show();
-
-    QLabel *label2 = new QLabel(this);
-    label2->setGeometry(1150,250,21,251);
-    label2->setObjectName("Level_2_wall_1");
-    label2->show();
-
-    QLabel *label3 = new QLabel(this);
-    label3->setGeometry(40,140,151,191);
-    label3->setObjectName("Level_2_Main_Character");
-    label3->setObjectName(QString::fromStdString("Level_2_Main_Character"));
-    label3->show();
-
-    QLabel *label5 = new QLabel(this);
-    label5->setGeometry(50,0,61,41);
-    label5->setObjectName("Level_2_Fly_Counter");
-    label5->show();
-
-    QLabel *label6 = new QLabel(this);
-    label6->setGeometry(0,0,51,51);
-    label6->setObjectName("Level_2_Icon_Fly");
-    label6->show();
-
-    QLabel *label7 = new QLabel(this);
-    label7->setGeometry(540,80,31,31);
-    label7->setObjectName("Level_2_fly_goal_1");
-    label7->show();
-
-    QLabel *label8 = new QLabel(this);
-    label8->setGeometry(50,510,49,51);
-    label8->setObjectName("Level_2_spawn_point");
-    label8->show();
-
-    QLabel *label9 = new QLabel(this);
-    label9->setGeometry(-10,660,1441,61);
-    label9->setObjectName("Level_2_Ground");
-    label9->show();
-
-    QLabel *label10 = new QLabel(this);
-    label10->setGeometry(1150,450,21,251);
-    label10->setObjectName("Level_2_Door_1");
-    label10->show();
-
-    QLabel *label11 = new QLabel(this);
-    label11->setGeometry(1210,510,81,141);
-    label11->setObjectName("Level_2_warp_zone");
-    label11->show();
+    for(int i = 0; i<currentLevelAssets.size(); i++){
+        QLabel *label = new QLabel(this);
+        label->setGeometry(currentLevelAssets[i]->x,currentLevelAssets[i]->y,currentLevelAssets[i]->width,currentLevelAssets[i]->height);
+        label->setObjectName(QString::fromStdString(currentLevelAssets[i]->name));
+        label->show();
+    }
 
 }
 
@@ -200,7 +141,8 @@ void MainWindow::deleteAllLabels(){
 
         QString nameOfLabel = allLabels[i]->objectName();
         //check if name has platform_ in it
-        if ((nameOfLabel.toStdString()).find("Level_1") != std::string::npos) {
+        string deleteTabsLevel = "Level_" + to_string(stageCounter-1);
+        if ((nameOfLabel.toStdString()).find(deleteTabsLevel) != std::string::npos) {
             if ((nameOfLabel.toStdString()).find("fly_goal_") != std::string::npos) {
                 //allLabels[i]->deleteLater();
             }else{
@@ -851,6 +793,7 @@ void MainWindow::Update_Fly_Count(){
     string flyPrinter = to_string(fliesCollected) + "/" + to_string(numberOfFlies);
     QString flyPrinter2 = QString::fromStdString(flyPrinter);
     FlyCounterPointer->setText(flyPrinter2);
+    //FlyCounterPointer->setFont(25);
 }
 
 void MainWindow::Count_All_Flies(){
@@ -971,3 +914,77 @@ void MainWindow::TrackCharacter(){
 //QList<QPushButton*> btnList = qFindChildren<QPushButton*> ( this );
 //QLabel* label = new QLabel("ui->platform_1");
 //string currentPlatformPixelmap = "ui->platform_"+i+"->setPixmap(QPixmap::fromImage(image));";
+
+//label->setObjectName(QString::fromStdString("Level_2_platform_1"));
+//label->setAccessibleName("Level_2_platform_1");
+//label->sizePolicy(Preferred,Preferred,0,0);
+//label->setEnabled(true);
+//label->setText(QString::fromStdString("BOOOOOGABOOOOGA"));
+//QMainWindow->addWidget(label);
+//layout->addWidget(label);
+//setLayout(layout);
+
+//QString::fromStdString(str);
+
+//int xPoster = ui->YoyoLabel->x();
+//int yPoster = ui->YoyoLabel->y();
+
+//QHBoxLayout *layout = new QHBoxLayout();
+
+/*
+QLabel *label4 = new QLabel(this);
+label4->setGeometry(-40,0,1411,731);
+label4->setObjectName("Level_2_BackGround");
+label4->show();
+
+QLabel *label = new QLabel(this);
+label->setGeometry(310,400,221,31);
+label->setObjectName("Level_2_platform_1");
+label->show();
+
+QLabel *label2 = new QLabel(this);
+label2->setGeometry(1150,250,21,251);
+label2->setObjectName("Level_2_wall_1");
+label2->show();
+
+QLabel *label3 = new QLabel(this);
+label3->setGeometry(40,140,151,191);
+label3->setObjectName("Level_2_Main_Character");
+label3->setObjectName(QString::fromStdString("Level_2_Main_Character"));
+label3->show();
+
+QLabel *label5 = new QLabel(this);
+label5->setGeometry(50,0,61,41);
+label5->setObjectName("Level_2_Fly_Counter");
+label5->show();
+
+QLabel *label6 = new QLabel(this);
+label6->setGeometry(0,0,51,51);
+label6->setObjectName("Level_2_Icon_Fly");
+label6->show();
+
+QLabel *label7 = new QLabel(this);
+label7->setGeometry(540,80,31,31);
+label7->setObjectName("Level_2_fly_goal_1");
+label7->show();
+
+QLabel *label8 = new QLabel(this);
+label8->setGeometry(50,510,49,51);
+label8->setObjectName("Level_2_spawn_point");
+label8->show();
+
+QLabel *label9 = new QLabel(this);
+label9->setGeometry(-10,660,1441,61);
+label9->setObjectName("Level_2_Ground");
+label9->show();
+
+QLabel *label10 = new QLabel(this);
+label10->setGeometry(1150,450,21,251);
+label10->setObjectName("Level_2_Door_1");
+label10->show();
+
+QLabel *label11 = new QLabel(this);
+label11->setGeometry(1210,510,81,141);
+label11->setObjectName("Level_2_warp_zone");
+label11->show();
+*/
