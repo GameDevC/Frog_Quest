@@ -76,7 +76,7 @@ private:
     void MoveRatHatter();
     void Pop_Up_Enteties();
     void updateHealthBar();
-    void PlayMusic();
+    //void PlayMusic();
     void Generate_Semi_Background();
 
     float TIMESPACER = 1000;

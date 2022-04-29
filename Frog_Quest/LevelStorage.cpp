@@ -9,6 +9,7 @@ void fillLevel1();
 void fillLevel2();
 void fillLevel3();
 void fillLevel4();
+void fillLevel5();
 
 class Asset{
 public:
@@ -31,6 +32,7 @@ vector<Asset*> level1Labels;
 vector<Asset*> level2Labels;
 vector<Asset*> level3Labels;
 vector<Asset*> level4Labels;
+vector<Asset*> level5Labels;
 
 vector<Asset*> levelSelect(int currentLevel){
 
@@ -57,6 +59,10 @@ vector<Asset*> levelSelect(int currentLevel){
         case 5:
             fillLevel4();
             return level4Labels;
+            break;
+        case 6:
+            fillLevel5();
+            return level5Labels;
             break;
 
     }
@@ -209,11 +215,79 @@ void fillLevel4(){
     level4Labels.push_back(new Asset(780,600,80,80, "Level_5_spikey_8"));
     level4Labels.push_back(new Asset(860,600,80,80, "Level_5_spikey_9"));
     level4Labels.push_back(new Asset(940,600,80,80, "Level_5_spikey_10"));
-    level4Labels.push_back(new Asset(670,270,80,80, "Level_5_rat_hatter_1"));
+    level4Labels.push_back(new Asset(650,270,80,80, "Level_5_rat_hatter_1"));
 
     //User interface
     level4Labels.push_back(new Asset(1100,0,171,41, "Level_5_Health_Bar"));
 
+}
+
+void fillLevel5(){
+    //Base Stage Items(except maybe ground)
+    level5Labels.push_back(new Asset(-40,0,1411,731, "Level_6_BackGround"));
+    level5Labels.push_back(new Asset(50,0,200,41, "Level_6_Fly_Counter"));
+    level5Labels.push_back(new Asset(0,0,51,51, "Level_6_Icon_Fly"));
+    level5Labels.push_back(new Asset(40,140,151,191, "Level_6_Main_Character"));
+    level5Labels.push_back(new Asset(-10,660,1441,61, "Level_6_Ground"));
+
+
+    //Stage singular interactables(except maybe door)
+    level5Labels.push_back(new Asset(50,400,49,51, "Level_6_spawn_point"));
+    level5Labels.push_back(new Asset(1150,450,21,251, "Level_6_Door_1"));
+    level5Labels.push_back(new Asset(1210,500,81,141, "Level_6_warp_zone"));
+
+    //stage multiples interactables(except you might always need 1)
+    level5Labels.push_back(new Asset(0,300,221,31, "Level_6_platform_1"));
+    level5Labels.push_back(new Asset(800,300,221,31, "Level_6_platform_2"));
+    level5Labels.push_back(new Asset(600,300,221,31, "Level_6_platform_3"));
+    level5Labels.push_back(new Asset(400,300,221,31, "Level_6_platform_4"));
+    level5Labels.push_back(new Asset(200,300,221,31, "Level_6_platform_5"));
+    level5Labels.push_back(new Asset(1050,450,221,31, "Level_6_platform_6"));
+    level5Labels.push_back(new Asset(1150,250,21,251, "Level_6_Wall_1"));
+    level5Labels.push_back(new Asset(1150,50,21,251, "Level_6_Wall_2"));
+    level5Labels.push_back(new Asset(1150,-50,21,251, "Level_6_Wall_3"));
+    level5Labels.push_back(new Asset(100,180,31,31, "Level_6_fly_goal_1"));
+
+
+    //enemy
+    level5Labels.push_back(new Asset(770,1270,80,80, "Level_6_trobbel_1"));
+    level5Labels.push_back(new Asset(0,380,80,80, "Level_6_spikey_1"));
+    level5Labels.push_back(new Asset(80,380,80,80, "Level_6_spikey_2"));
+    level5Labels.push_back(new Asset(160,380,80,80, "Level_6_spikey_3"));
+    level5Labels.push_back(new Asset(240,380,80,80, "Level_6_spikey_4"));
+    level5Labels.push_back(new Asset(320,380,80,80, "Level_6_spikey_5"));
+    level5Labels.push_back(new Asset(400,380,80,80, "Level_6_spikey_6"));
+    level5Labels.push_back(new Asset(480,380,80,80, "Level_6_spikey_7"));
+    level5Labels.push_back(new Asset(560,380,80,80, "Level_6_spikey_8"));
+    level5Labels.push_back(new Asset(640,380,80,80, "Level_6_spikey_9"));
+    level5Labels.push_back(new Asset(720,380,80,80, "Level_6_spikey_10"));
+     level5Labels.push_back(new Asset(800,380,80,80, "Level_6_spikey_11"));
+     level5Labels.push_back(new Asset(0,10,80,80, "Level_6_spikey_12"));
+     level5Labels.push_back(new Asset(80,10,80,80, "Level_6_spikey_13"));
+     level5Labels.push_back(new Asset(160,10,80,80, "Level_6_spikey_14"));
+     level5Labels.push_back(new Asset(240,10,80,80, "Level_6_spikey_15"));
+     level5Labels.push_back(new Asset(320,10,80,80, "Level_6_spikey_16"));
+     level5Labels.push_back(new Asset(400,10,80,80, "Level_6_spikey_17"));
+     level5Labels.push_back(new Asset(480,10,80,80, "Level_6_spikey_18"));
+     level5Labels.push_back(new Asset(560,10,80,80, "Level_6_spikey_19"));
+     level5Labels.push_back(new Asset(640,10,80,80, "Level_6_spikey_20"));
+     level5Labels.push_back(new Asset(720,10,80,80, "Level_6_spikey_21"));
+      level5Labels.push_back(new Asset(800,10,80,80, "Level_6_spikey_22"));
+    //level5Labels.push_back(new Asset(380,600,80,80, "Level_6_spikey_3"));
+    //level5Labels.push_back(new Asset(460,600,80,80, "Level_6_spikey_4"));
+    //level5Labels.push_back(new Asset(540,600,80,80, "Level_6_spikey_5"));
+    //level5Labels.push_back(new Asset(620,600,80,80, "Level_6_spikey_6"));
+    //level5Labels.push_back(new Asset(700,600,80,80, "Level_6_spikey_7"));
+    //level5Labels.push_back(new Asset(780,600,80,80, "Level_6_spikey_8"));
+    //level5Labels.push_back(new Asset(860,600,80,80, "Level_6_spikey_9"));
+    //level5Labels.push_back(new Asset(940,600,80,80, "Level_6_spikey_10"));
+    level5Labels.push_back(new Asset(670,90,80,80, "Level_6_rat_hatter_1"));
+    level5Labels.push_back(new Asset(670,460,80,80, "Level_6_rat_hatter_2"));
+    level5Labels.push_back(new Asset(370,90,80,80, "Level_6_rat_hatter_3"));
+    level5Labels.push_back(new Asset(370,460,80,80, "Level_6_rat_hatter_4"));
+
+    //User interface
+    level5Labels.push_back(new Asset(1100,0,171,41, "Level_6_Health_Bar"));
 }
 
 

@@ -1,37 +1,15 @@
-/*
-#include <iostream>
-#include <vector>
-#include <string>
-#include <iostream>
-#include <MMsystem.h>
-//#include <mciapi.h>
-//#include <QtMultimedia/QMediaPlayer>
-//#include <QMediaPlayer>
+//#include<iostream>
+//#include<windows.h>    //used for PlaySound function
+//#include<fstream>    //used for file handling
 
-//#include <iostream>
-#include <Windows.h>
-#include <ctime>
-
-//#pragma comment(lib, "Winmm.lib")
-
-using namespace std;
-
-//PlaySound(string, string, string);
-
-void PlayMusic(){
-
-    //PlaySound(TEXT("C:\\Users\\fefse.wav"), NULL, SND_ASYNC);
-    //QMediaPlayer *player = new QMediaPlayer;
-    //player->setMedia(QUrl::fromLocalFile("/path"));
-    //player->setVolume(50);
-    //player->play();
+//#include <mmsystem.h>
+//using namespace std;
 
 
-    player = new QMediaPlayer;
-    connect(player, SIGNAL(positionChanged(qint64)), this, SLOT(positionChanged(qint64)));
-    player->setMedia(QUrl::fromLocalFile("/Users/me/Music/coolsong.mp3"));
-    player->setVolume(50);
-    player->play();
 
-}
-*/
+//void Play_Music_forgame(){
+
+    //PlaySound(TEXT("mysound.wav"), NULL, SND_LOOP | SND_ASYNC);
+
+    //PlaySound(TEXT("../Frog_Quest/Assets/Sounds/Music/DaforLinxMountOfRememberance.mp3"), NULL, SND_LOOP | SND_ASYNC);
+//}

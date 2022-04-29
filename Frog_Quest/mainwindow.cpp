@@ -3,6 +3,7 @@
 #include "ui_mainwindow.h"
 #include "my_gl.h"
 #include "animationcontroller.h"
+//#include "MusicPlayer.cpp"
 //#include "level_1.h"
 //#include "ui_level_1.h"
 
@@ -54,6 +55,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     setWindowTitle("Frog Quest");
     setFixedWidth(1280);
     setFixedHeight(720);
+
+    //music setup
+    //Play_Music_forgame();
 
 
 
@@ -493,6 +497,7 @@ void MainWindow::updateHealthBar(){
             }
         }
     }else if(Hp <= 0){
+        gravitySpeed = 0;
         toSpawnPoint();
         Hp = 5;
         updateHealthBar();
@@ -1384,12 +1389,7 @@ void MainWindow::whenWarped(){
 
 }
 
-void MainWindow::PlayMusic(){
-    //QMediaPlayer *player = new QMediaPlayer;
-    //player->setMedia(QUrl::fromLocalFile("/path"));
-    //player->setVolume(50);
-    //player->play();
-}
+
 
 
 
