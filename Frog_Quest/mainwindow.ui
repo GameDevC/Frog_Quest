@@ -284,6 +284,19 @@
      <string>fly</string>
     </property>
    </widget>
+   <widget class="QLabel" name="Level_1_Health_Bar">
+    <property name="geometry">
+     <rect>
+      <x>1100</x>
+      <y>0</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>hearts</string>
+    </property>
+   </widget>
    <zorder>Level_1_BackGround</zorder>
    <zorder>Level_1_Main_Character</zorder>
    <zorder>openGLWidget</zorder>
@@ -304,6 +317,7 @@
    <zorder>Level_1_warp_zone</zorder>
    <zorder>YoyoLabel</zorder>
    <zorder>Level_1_fly_goal_1</zorder>
+   <zorder>Level_1_Health_Bar</zorder>
   </widget>
  </widget>
  <customwidgets>

@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <vector>
 #include <iostream>
+//#include <QMediaPlayer>
 
 //#include "level_1.h"
 
@@ -63,6 +64,20 @@ private:
     void whenWarped();
     void TrackCharacter();
     void playerAnimator();
+    void Generate_Enemies();
+    void Generate_Trobbles();
+    void Generate_Spikeys();
+    void Generate_Rat_Hatters();
+    void Trobbel_Hit_Player();
+    void MoveTrobbel();
+    void Spikey_Hit_Player();
+    void MoveSpikey();
+    void Rat_Hatter_Hit_Player();
+    void MoveRatHatter();
+    void Pop_Up_Enteties();
+    void updateHealthBar();
+    void PlayMusic();
+    void Generate_Semi_Background();
 
     float TIMESPACER = 1000;
     float xSpeed = 0;
@@ -79,6 +94,11 @@ private:
     int MCIdelCurrentCount = 1;
     int MCMovingCurrentCount = 1;
     int stageCounter = 1;
+    int trobbelMoverCounter = 0;
+    int spikeyMoverCounter = 0;
+    int ratHatterMoverCounter = 0;
+    int Hp = 5;
+
 
 
     float jumpSpeed = 50;
@@ -93,7 +113,12 @@ private:
     bool blockedMovingXp2 = false;
     bool blockedMovingXn2 = false;
     bool isLeftFacing = false;
+    bool trobbelLeft = true;
+    bool spikeyLeft = true;
+    bool ratHatterLeft = true;
+    bool ratHatterUp = false;
 
+    //QMediaPlayer *player;
 
 
     //float incrementingTime = 0;

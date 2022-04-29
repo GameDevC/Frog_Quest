@@ -1,4 +1,5 @@
 QT       += core gui widgets opengl openglwidgets
+#QT       += multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,6 +14,7 @@ TEMPLATE = app
 
 SOURCES += \
     LevelStorage.cpp \
+    MusicPlayer.cpp \
     animationcontroller.cpp \
     #level1.cpp \
     #level_1.cpp \

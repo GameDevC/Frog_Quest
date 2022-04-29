@@ -15,6 +15,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include "LevelStorage.cpp"
+//#include <QMediaPlayer>
 
 #include <QtGui>
 #include <QtWidgets>
@@ -24,6 +25,9 @@ using namespace std;
 //top left, position 0 | top right, position 1 | bottom left, position 2 | bottom right, position 3
 vector<vector<int>> BlockedZone;
 QList<QLabel*> flyHolder;
+QList<QLabel*> trobbelHolder;
+QList<QLabel*> spikeyHolder;
+QList<QLabel*> ratHatterHolder;
 vector<vector<int>> WallBlockedZone;
 vector<vector<int>> DoorBlockedZone;
 vector<vector<int>> TestingBlockZone; //delete later
@@ -36,6 +40,7 @@ QLabel *WarpZonePointer;
 QLabel *SpawnZonePointer;
 QLabel *FlyCounterPointer;
 QLabel *IconFlyPointer;
+QLabel *HealthBarPointer;
 
 //stageCounter
 
@@ -63,7 +68,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     QTimer *playerTimer = new QTimer(this);
     connect(playerTimer, &QTimer::timeout, this, &MainWindow::playerAnimator);
-    playerTimer->start(150);
+    playerTimer->start(250);
 
 
 
@@ -113,10 +118,13 @@ void MainWindow::LevelSetUp(){
 
     Set_Ground();
     Set_BackGround();
+    Generate_Semi_Background();
     Generate_Platforms();
     Generate_Blocked_Zones();
     Generate_Screen_UI();
     Count_All_Flies();
+    Generate_Enemies();
+    updateHealthBar();
 
     Generate_Walls();
     Generate_Blocked_Walls();
@@ -153,6 +161,16 @@ void MainWindow::deleteAllLabels(){
         if ((nameOfLabel.toStdString()).find(deleteTabsLevel) != std::string::npos) {
             if ((nameOfLabel.toStdString()).find("fly_goal_") != std::string::npos) {
                 //allLabels[i]->deleteLater();
+                //allLabels[i]->move(allLabels[i]->x(), allLabels[i]->y() + 1000);
+            }else if((nameOfLabel.toStdString()).find("trobbel_") != std::string::npos){
+                //rofl
+                allLabels[i]->move(allLabels[i]->x(), allLabels[i]->y() + 1000);
+            }else if((nameOfLabel.toStdString()).find("spikey_") != std::string::npos){
+                //rofl
+                allLabels[i]->move(allLabels[i]->x(), allLabels[i]->y() + 1000);
+            }else if((nameOfLabel.toStdString()).find("rat_hatter_") != std::string::npos){
+                //rofl
+                allLabels[i]->move(allLabels[i]->x(), allLabels[i]->y() + 1000);
             }else{
                 allLabels[i]->deleteLater();
             }
@@ -175,6 +193,10 @@ void MainWindow::clearAllArrays(){
     DoorBlockedZone.empty();
 
     //BlockedZone = new vector<vector<int>>;
+}
+
+void MainWindow::Pop_Up_Enteties(){
+    //probably don't need this anymore
 }
 
 void MainWindow::updateProgress()
@@ -205,6 +227,16 @@ void MainWindow::updateProgress()
 
     Detect_Fly();
     Detect_Portal();
+
+    //enemy movement
+    MoveTrobbel();
+    MoveSpikey();
+    MoveRatHatter();
+
+    //enemy collision
+    Trobbel_Hit_Player();
+    Spikey_Hit_Player();
+    Rat_Hatter_Hit_Player();
 
 }
 
@@ -244,6 +276,9 @@ void MainWindow::FindSpecificElements(){
         }
         if ((nameOfLabel.toStdString()).find("Fly_Counter") != std::string::npos) {
             FlyCounterPointer = allLabels[i];
+        }
+        if ((nameOfLabel.toStdString()).find("Health_Bar") != std::string::npos) {
+            HealthBarPointer = allLabels[i];
         }
     }
 
@@ -394,6 +429,74 @@ void MainWindow::playerAnimator(){
         }
     }
 
+}
+
+void MainWindow::updateHealthBar(){
+    if(Hp == 5){
+        QString filename = "../Frog_Quest/Assets/Characters/Main/UI/Heart_Number_" + QString::fromStdString(to_string(Hp)) + ".png";
+        if (QString::compare(filename, QString()) != 0){
+            QImage image;
+            bool valid = image.load(filename);
+            image = image.scaledToWidth(HealthBarPointer->width(), Qt::SmoothTransformation);
+            if(valid){
+                HealthBarPointer->setPixmap(QPixmap::fromImage(image));
+            } else {
+                //error handling
+            }
+        }
+    }else if(Hp == 4){
+        QString filename = "../Frog_Quest/Assets/Characters/Main/UI/Heart_Number_" + QString::fromStdString(to_string(Hp)) + ".png";
+        if (QString::compare(filename, QString()) != 0){
+            QImage image;
+            bool valid = image.load(filename);
+            image = image.scaledToWidth(HealthBarPointer->width(), Qt::SmoothTransformation);
+            if(valid){
+                HealthBarPointer->setPixmap(QPixmap::fromImage(image));
+            } else {
+                //error handling
+            }
+        }
+    }else if(Hp == 3){
+        QString filename = "../Frog_Quest/Assets/Characters/Main/UI/Heart_Number_" + QString::fromStdString(to_string(Hp)) + ".png";
+        if (QString::compare(filename, QString()) != 0){
+            QImage image;
+            bool valid = image.load(filename);
+            image = image.scaledToWidth(HealthBarPointer->width(), Qt::SmoothTransformation);
+            if(valid){
+                HealthBarPointer->setPixmap(QPixmap::fromImage(image));
+            } else {
+                //error handling
+            }
+        }
+    }else if(Hp == 2){
+        QString filename = "../Frog_Quest/Assets/Characters/Main/UI/Heart_Number_" + QString::fromStdString(to_string(Hp)) + ".png";
+        if (QString::compare(filename, QString()) != 0){
+            QImage image;
+            bool valid = image.load(filename);
+            image = image.scaledToWidth(HealthBarPointer->width(), Qt::SmoothTransformation);
+            if(valid){
+                HealthBarPointer->setPixmap(QPixmap::fromImage(image));
+            } else {
+                //error handling
+            }
+        }
+    }else if(Hp == 1){
+        QString filename = "../Frog_Quest/Assets/Characters/Main/UI/Heart_Number_" + QString::fromStdString(to_string(Hp)) + ".png";
+        if (QString::compare(filename, QString()) != 0){
+            QImage image;
+            bool valid = image.load(filename);
+            image = image.scaledToWidth(HealthBarPointer->width(), Qt::SmoothTransformation);
+            if(valid){
+                HealthBarPointer->setPixmap(QPixmap::fromImage(image));
+            } else {
+                //error handling
+            }
+        }
+    }else if(Hp <= 0){
+        toSpawnPoint();
+        Hp = 5;
+        updateHealthBar();
+    }
 }
 
 void MainWindow::animationCaller()
@@ -644,6 +747,33 @@ void MainWindow::Generate_Doors(){
     }
 }
 
+void MainWindow::Generate_Semi_Background(){
+    QString filename = "../Frog_Quest/Assets/Level/Interior/Interior_Dirt.png";
+
+    //sets name of platforms
+    QList<QLabel*> allLabels = this->findChildren<QLabel*>();
+
+    for(int i = 0; i < allLabels.size(); i++){
+        //get the name of the current label
+        QString nameOfLabel = allLabels[i]->objectName();
+        //check if name has platform_ in it
+        if ((nameOfLabel.toStdString()).find("interior_") != std::string::npos) {
+            //replace images on i
+            if (QString::compare(filename, QString()) != 0){
+                QImage image;
+                bool valid = image.load(filename);
+                image = image.scaledToWidth(allLabels[i]->width(), Qt::SmoothTransformation);
+
+                if(valid){
+                    allLabels[i]->setPixmap(QPixmap::fromImage(image));
+                } else {
+                    //error handling
+                }
+            }
+        }
+    }
+}
+
 void MainWindow::Generate_Warp(){
     QString filename = "../Frog_Quest/Assets/Level/Portals/portal_1.png";
 
@@ -672,6 +802,234 @@ void MainWindow::Generate_Warp(){
             }
         }
     }
+}
+
+void MainWindow::Generate_Enemies(){
+    //Level_3_trobbel_1
+    Generate_Trobbles();
+    Generate_Spikeys();
+    Generate_Rat_Hatters();
+}
+
+void MainWindow::Generate_Trobbles(){
+    QString filename = "../Frog_Quest/Assets/Characters/Enemies/Trobbles/TPlaceholder2.png";
+    //sets name of platforms
+    QList<QLabel*> allLabels = this->findChildren<QLabel*>();
+
+    for(int i = 0; i < allLabels.size(); i++){
+        //get the name of the current label
+        QString nameOfLabel = allLabels[i]->objectName();
+        //check if name has platform_ in it
+        string trobStringTemp = "Level_" + to_string(stageCounter) + "_trobbel";
+        if ((nameOfLabel.toStdString()).find(trobStringTemp) != std::string::npos) {
+            trobbelHolder.append(allLabels[i]);
+            //replace images on i
+            if (QString::compare(filename, QString()) != 0){
+                QImage image;
+                bool valid = image.load(filename);
+                image = image.scaledToWidth(allLabels[i]->width(), Qt::SmoothTransformation);
+
+                if(valid){
+                    allLabels[i]->setPixmap(QPixmap::fromImage(image));
+                } else {
+                    //error handling
+                }
+            }
+        }
+    }
+}
+
+void MainWindow::Generate_Spikeys(){
+    QString filename = "../Frog_Quest/Assets/Characters/Enemies/Spikeys/Spikey1.png";
+    //sets name of platforms
+    QList<QLabel*> allLabels = this->findChildren<QLabel*>();
+
+    for(int i = 0; i < allLabels.size(); i++){
+        //get the name of the current label
+        QString nameOfLabel = allLabels[i]->objectName();
+        //check if name has platform_ in it
+        string spikStringTemp = "Level_" + to_string(stageCounter) + "_spikey";
+        if ((nameOfLabel.toStdString()).find(spikStringTemp) != std::string::npos) {
+            spikeyHolder.append(allLabels[i]);
+            //replace images on i
+            if (QString::compare(filename, QString()) != 0){
+                QImage image;
+                bool valid = image.load(filename);
+                image = image.scaledToWidth(allLabels[i]->width(), Qt::SmoothTransformation);
+
+                if(valid){
+                    allLabels[i]->setPixmap(QPixmap::fromImage(image));
+                } else {
+                    //error handling
+                }
+            }
+        }
+    }
+}
+
+void MainWindow::Generate_Rat_Hatters(){
+    QString filename = "../Frog_Quest/Assets/Characters/Enemies/Rat_Hatters/Rat_Hatter1.png";
+    //sets name of platforms
+    QList<QLabel*> allLabels = this->findChildren<QLabel*>();
+
+    for(int i = 0; i < allLabels.size(); i++){
+        //get the name of the current label
+        QString nameOfLabel = allLabels[i]->objectName();
+        //check if name has platform_ in it
+        string rhStringTemp = "Level_" + to_string(stageCounter) + "_rat_hatter";
+        if ((nameOfLabel.toStdString()).find(rhStringTemp) != std::string::npos) {
+            ratHatterHolder.append(allLabels[i]);
+            //replace images on i
+            if (QString::compare(filename, QString()) != 0){
+                QImage image;
+                bool valid = image.load(filename);
+                image = image.scaledToWidth(allLabels[i]->width(), Qt::SmoothTransformation);
+
+                if(valid){
+                    allLabels[i]->setPixmap(QPixmap::fromImage(image));
+                } else {
+                    //error handling
+                }
+            }
+        }
+    }
+}
+
+void MainWindow::Trobbel_Hit_Player(){
+    int MC_Ypos = MainCharPointer->y();//top
+    int MC_Ypos2 = MainCharPointer->y()+MainCharPointer->height();//bottom
+    int MC_Xpos = MainCharPointer->x();//left
+    int MC_Xpos2 = MainCharPointer->x() + MainCharPointer->width();//right
+    for(int i = 0; i < trobbelHolder.size(); i++){
+        //flyHolder[i]->move(flyHolder[i]->x(), flyHolder[i]->y() + 1);
+        if(trobbelHolder[i]->x()+20 > MC_Xpos && trobbelHolder[i]->x()+28 < MC_Xpos2){
+            if(trobbelHolder[i]->y() > MC_Ypos && trobbelHolder[i]->y() < MC_Ypos2){
+                MainCharPointer->move(MainCharPointer->x(),MainCharPointer->y()-80);
+                gravitySpeed = -30;
+                Hp = Hp - 1;
+                updateHealthBar();
+            }
+        }
+    }
+}
+
+void MainWindow::Spikey_Hit_Player(){
+    int MC_Ypos = MainCharPointer->y();//top
+    int MC_Ypos2 = MainCharPointer->y()+MainCharPointer->height();//bottom
+    int MC_Xpos = MainCharPointer->x();//left
+    int MC_Xpos2 = MainCharPointer->x() + MainCharPointer->width();//right
+    for(int i = 0; i < spikeyHolder.size(); i++){
+        //flyHolder[i]->move(flyHolder[i]->x(), flyHolder[i]->y() + 1);
+        if(spikeyHolder[i]->x()+20 > MC_Xpos && spikeyHolder[i]->x()+28 < MC_Xpos2){
+            if(spikeyHolder[i]->y() > MC_Ypos && spikeyHolder[i]->y() < MC_Ypos2){
+                MainCharPointer->move(MainCharPointer->x(),MainCharPointer->y()-80);
+                gravitySpeed = -30;
+                Hp = Hp - 1;
+                updateHealthBar();
+            }
+        }
+    }
+}
+
+void MainWindow::Rat_Hatter_Hit_Player(){
+    int MC_Ypos = MainCharPointer->y();//top
+    int MC_Ypos2 = MainCharPointer->y()+MainCharPointer->height();//bottom
+    int MC_Xpos = MainCharPointer->x();//left
+    int MC_Xpos2 = MainCharPointer->x() + MainCharPointer->width();//right
+    for(int i = 0; i < ratHatterHolder.size(); i++){
+        //flyHolder[i]->move(flyHolder[i]->x(), flyHolder[i]->y() + 1);
+        if(ratHatterHolder[i]->x()+20 > MC_Xpos && ratHatterHolder[i]->x()+28 < MC_Xpos2){
+            if(ratHatterHolder[i]->y() > MC_Ypos && ratHatterHolder[i]->y() < MC_Ypos2){
+                MainCharPointer->move(MainCharPointer->x(),MainCharPointer->y()-80);
+                gravitySpeed = -30;
+                Hp = Hp - 1;
+                updateHealthBar();
+            }
+        }
+    }
+}
+
+void MainWindow::MoveTrobbel(){
+    int trobbelMovementMax = 25;
+
+    if(trobbelMoverCounter == trobbelMovementMax){
+        trobbelMoverCounter = 0;
+        if(trobbelLeft == true){
+            trobbelLeft = false;
+        }else{
+            trobbelLeft = true;
+        }
+    }
+
+    trobbelMoverCounter = trobbelMoverCounter + 1;
+    for(int i = 0; i < trobbelHolder.size(); i++){
+        if(trobbelLeft == true){
+            trobbelHolder[i]->move(trobbelHolder[i]->x()-5,trobbelHolder[i]->y());
+        }else{
+            trobbelHolder[i]->move(trobbelHolder[i]->x()+5,trobbelHolder[i]->y());
+        }
+    }
+
+}
+
+void MainWindow::MoveSpikey(){
+
+    /*
+    int spikeyMovementMax = 25;
+
+    if(spikeyMoverCounter == spikeyMovementMax){
+        spikeyMoverCounter = 0;
+        if(spikeyLeft == true){
+            spikeyLeft = false;
+        }else{
+            spikeyLeft = true;
+        }
+    }
+
+    spikeyMoverCounter = spikeyMoverCounter + 1;
+    for(int i = 0; i < spikeyHolder.size(); i++){
+        if(spikeyLeft == true){
+            spikeyHolder[i]->move(spikeyHolder[i]->x()-5,spikeyHolder[i]->y());
+        }else{
+            spikeyHolder[i]->move(spikeyHolder[i]->x()+5,spikeyHolder[i]->y());
+        }
+    }
+
+    */
+}
+
+void MainWindow::MoveRatHatter(){
+    int ratHatterMovementMax = 50;
+
+    if(ratHatterMoverCounter == ratHatterMovementMax){
+        ratHatterMoverCounter = 0;
+        ratHatterUp = false;
+        if(ratHatterLeft == true){
+            ratHatterLeft = false;
+        }else{
+            ratHatterLeft = true;
+        }
+    }
+    if(ratHatterMoverCounter == ratHatterMovementMax/2){
+        ratHatterUp = true;
+    }
+    int RHSlope = ratHatterMoverCounter % 25;
+    //RHSlope = 25/ratHatterMoverCounter;
+
+    ratHatterMoverCounter = ratHatterMoverCounter + 1;
+    for(int i = 0; i < ratHatterHolder.size(); i++){
+        if(ratHatterLeft == true){
+            ratHatterHolder[i]->move(ratHatterHolder[i]->x()-5,ratHatterHolder[i]->y());
+        }else{
+            ratHatterHolder[i]->move(ratHatterHolder[i]->x()+5,ratHatterHolder[i]->y());
+        }
+        if(ratHatterUp == true){
+            ratHatterHolder[i]->move(ratHatterHolder[i]->x(),ratHatterHolder[i]->y()-25/(25-RHSlope));
+        }else{
+            ratHatterHolder[i]->move(ratHatterHolder[i]->x(),ratHatterHolder[i]->y()+(25/(RHSlope+1)));
+        }
+    }
+
 }
 
 bool MainWindow::Check_Ground(){
@@ -969,6 +1327,7 @@ void MainWindow::Count_All_Flies(){
 
     QList<QLabel*> allLabels = this->findChildren<QLabel*>();
     //for loop that checks all labels in size.
+    flyHolder.clear();
     for(int i = 0; i < allLabels.size(); i++){
         //get the name of the current label
         QString nameOfLabel = allLabels[i]->objectName();
@@ -1009,6 +1368,7 @@ void MainWindow::whenWarped(){
     stageCounter = stageCounter + 1;
     fliesCollected = 0;
     numberOfFlies = 0;
+    Pop_Up_Enteties();
     deleteAllLabels();
     clearAllArrays();
     setUpStageLabels();
@@ -1019,6 +1379,13 @@ void MainWindow::whenWarped(){
     //setUpStageLabels();
     //LevelSetUp();
 
+}
+
+void MainWindow::PlayMusic(){
+    //QMediaPlayer *player = new QMediaPlayer;
+    //player->setMedia(QUrl::fromLocalFile("/path"));
+    //player->setVolume(50);
+    //player->play();
 }
 
 
