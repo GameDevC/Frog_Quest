@@ -1309,7 +1309,10 @@ void MainWindow::Generate_Screen_UI(){
 }
 
 void MainWindow::Update_Fly_Count(){
-
+    QFont font = FlyCounterPointer->font();
+    font.setPointSize(26);
+    font.setBold(true);
+    FlyCounterPointer->setFont(font);
 
     //fliesCollected
     string flyPrinter = to_string(fliesCollected) + "/" + to_string(numberOfFlies);
